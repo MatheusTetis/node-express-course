@@ -2,6 +2,8 @@ const express = require('express'); // import Express from node_modules folder
 const app = express(); // creates an instance with the express constructor
 
 
+// This function will respond to a GET request at http://localhost:8000/users
+// with a JSON file, which includes our mockData under the key 'users'.
 const mockUserData=[
 {name:'Mark'},
 {name:'Jill'}
