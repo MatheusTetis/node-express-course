@@ -2,6 +2,12 @@ const express = require('express'); // import Express from node_modules folder
 const app = express(); // creates an instance with the express constructor
 const bodyParser = require('body-parser'); // import body-parser
 
+const bcrypt = require('bcrypt'); // import bcrypt to crypt password
+const saltRounds = 10;
+
+const loginHash = "$2b$10$sGH6jPgFhpLVDNEu36C9uueTTZVG5rclpjAZpfn8cpBVlaGGe1GCK";
+const pswHash = "$2b$10$q3whBPJK8IWroblrXzR8z.QQ9xSIlxeVWXmdjRLit/505pF10saym";
+
 
 app.use(bodyParser.json()); // escolhe o formato de dados que será enviado para o server
 
@@ -43,10 +49,12 @@ app.post('/login',function(req,res){
  	const username=req.body.username;
  	const password=req.body.password;
  
- 	const mockUsername="billyTheKid";
- 	const mockPassword="superSecret";
+	// username: billyTheKid
+	// password: superSecret
+ 	const mockUsername=loginHash;
+ 	const mockPassword=pswHash;
  
- 	if (username===mockUsername && password===mockPassword){
+ 	if (bcrypt.compare(username, loginHash) && bcrypt.compare(password, pswHash)){
       	res.json({
       	 	success: true,
       	 	message: 'password and username match!',
